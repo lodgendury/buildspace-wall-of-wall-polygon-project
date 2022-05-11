@@ -1,2 +1,15 @@
-# tech.nba-polygon-project
-a .nba (never broke again) domain project to track how people broke into tech, their interests/goals and their learning/employment/work journey so far especially newbies to help them better connect with potential employers/tutors.
+# Basic Sample Hardhat Project
+
+This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+
+Try running some of the following tasks:
+
+```shell
+npx hardhat accounts
+npx hardhat compile
+npx hardhat clean
+npx hardhat test
+npx hardhat node
+node scripts/sample-script.js
+npx hardhat help
+```
