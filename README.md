@@ -13,3 +13,10 @@ npx hardhat node
 node scripts/sample-script.js
 npx hardhat help
 ```
+To get started with this project, clone this repo and follow these commands:
+
+```
+Run cd domain-starter
+Run yarn install at the root of your directory
+Run yarn start to start the project
+```
