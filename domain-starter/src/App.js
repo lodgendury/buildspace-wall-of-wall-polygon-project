@@ -199,6 +199,7 @@ const App = () => {
 				setRecord({bio: "", email: "", avatar:""});
 				setDomain('');
 				
+				setLoading(0);
 			}
 			else {
 				alert("Transaction failed! Please try again");
@@ -214,7 +215,7 @@ const App = () => {
 
 const updateDomain = async () => {
 	if (!record || !domain) { return }
-	setLoading(true);
+	
 	console.log("Updating domain", domain, "with record", record);
 	  try {
 	  const { ethereum } = window;
@@ -237,7 +238,7 @@ const updateDomain = async () => {
 	  } catch(error) {
 		console.log(error);
 	  }
-	setLoading(false);
+	
   }
 
   const fetchMints = async () => {
@@ -1158,6 +1159,7 @@ const sharePost = async () => {
 		  console.log("Retrieved total posts by user...", userPostCount2.toNumber());
 
 		  setText("");
+		  setLoading(0);
 
 		  window.location.reload();
 		  
