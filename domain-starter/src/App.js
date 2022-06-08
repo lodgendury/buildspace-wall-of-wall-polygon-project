@@ -1236,7 +1236,7 @@ useEffect(() => {
 		return (
 		  <div className="wrong-network-text">
 			<p>Please connect to the Polygon Mumbai Testnet</p>
-			  <button className='cta-button network-button' disabled={null} onClick={switchNetwork}>
+			  <button className='cta-button network-button' onClick={switchNetwork}>
 				  Connect
 			  </button>  
 			</div>
@@ -1392,14 +1392,14 @@ useEffect(() => {
                 Cancel
               </button> 
               {/*This will call the updateDomain function we just made*/}
-              <button className='cta-button set-rec-button' disabled={loading} onClick={updateDomain}>
+              <button className='cta-button set-rec-button' onClick={updateDomain}>
                 Save
               </button>  
                
             </div>
           ) : (
             // If editing is not true, the mint button will be returned instead
-            <button className='cta-button mint-button' disabled={loading} onClick={mintDomain}>
+            <button className='cta-button mint-button' onClick={mintDomain}>
               {loading === 25 && <LoadingIndicator/> } {loading === 0 && "Mint"} {loading === 30 && "Retry"}
             </button>  
           )}
