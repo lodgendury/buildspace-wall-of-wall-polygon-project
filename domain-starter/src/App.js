@@ -7,6 +7,7 @@ import polygonLogo from './assets/polygonlogo.png';
 import ethLogo from './assets/ethlogo.png';
 import wallpin from './assets/wallpin.png';
 import { networks } from './utils/networks';
+import LoadingIndicator from './components/LoadingIndicator';
 
 // Constants
 const TWITTER_HANDLE = '_buildspace';
@@ -24,7 +25,7 @@ const App = () => {
 
 	const [profileEdit, setProfileEdit] = useState(false);
 	const [textEdit, setTextEdit] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(0);
   const [mints, setMints] = useState([]);
   const [allPosts, setAllPosts] = useState([]);
   const [allBookmarks, setAllBookmarks] = useState([]);
@@ -39,6 +40,7 @@ const App = () => {
   const [editProfile, setEditProfile] = useState(false);
 
 	const connectWallet = async () => {
+		setLoading(75);
 		try {
 		  const { ethereum } = window;
 	
@@ -57,6 +59,7 @@ const App = () => {
 		  
 		} catch (error) {
 		  console.log(error)
+		  setLoading(80);
 		}
 	  }
 	  
@@ -166,6 +169,7 @@ const App = () => {
 	const price = domain.length === 3 ? '0.5' : domain.length === 4 ? '0.3' : '0.1';
 	console.log("Minting domain", domain, "with price", price);
   try {
+	  setLoading(25);
     const { ethereum } = window;
     if (ethereum) {
       const provider = new ethers.providers.Web3Provider(ethereum);
@@ -198,11 +202,13 @@ const App = () => {
 			}
 			else {
 				alert("Transaction failed! Please try again");
+				setLoading(30);
 			}
     }
   }
   catch(error){
     console.log(error);
+	setLoading(30);
   }
 }
 
@@ -1124,7 +1130,9 @@ const hideMsg = async (id, hide) => {
 }
 
 const sharePost = async () => {
+	if (text === "") {return};
 	try {
+		setLoading(50);
 		const { ethereum } = window;
 		if (ethereum) {
 		  // You know all this
@@ -1156,9 +1164,11 @@ const sharePost = async () => {
 
 		} else {
 			console.log("Ethereum object doesn't exist!");
+			setLoading(60);
 		  }
 	} catch(error) {
 		console.log(error);
+		setLoading(60);
 	}
 }
 
@@ -1330,7 +1340,7 @@ useEffect(() => {
 
 		
             <button className='cta-button share-button'  onClick={sharePost}>
-              Share
+              {loading === 50 && <LoadingIndicator />} {loading === 60 && "Retry"} {loading === 0 && "Share"}
             </button>  
           </div>
 		
@@ -1345,7 +1355,7 @@ useEffect(() => {
 					type="text"
 					maxlength="8"
 					value={domain}
-					placeholder='domain ≤ 8 characters'
+					placeholder='domain'
 					onChange={e => setDomain(e.target.value)}
 				/>
 				<p className='tld'> {tld} </p>
@@ -1388,7 +1398,7 @@ useEffect(() => {
           ) : (
             // If editing is not true, the mint button will be returned instead
             <button className='cta-button mint-button' disabled={loading} onClick={mintDomain}>
-              Mint
+              {loading === 25 && <LoadingIndicator/> } {loading === 0 && "Mint"} {loading === 30 && "Retry"}
             </button>  
           )}
 
@@ -1433,7 +1443,7 @@ useEffect(() => {
 	  <div>
     <div className="App"></div>
 	<nav className="white-bar"><p>buildspace Wall of Fame <span>.gtfol</span></p>
-	{!currentAccount && (<button onClick={connectWallet} className="connect-button">Connect Wallet</button>)}
+	{!currentAccount && (<button onClick={connectWallet} className="connect-button">{/*{loading === 75 && <LoadingIndicator/> } {loading === 0 && "Connect Wallet"} {loading === 80 && "Retry"}*/}Connect Wallet</button>)}
 	{currentAccount && mints.find( ({ owner }) => owner.toLowerCase() === currentAccount.toLowerCase() ) &&
 	(
 	<div className="profile-btn-container">
