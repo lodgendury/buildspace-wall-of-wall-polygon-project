@@ -40,7 +40,7 @@ const App = () => {
   const [editProfile, setEditProfile] = useState(false);
 
 	const connectWallet = async () => {
-		setLoading(75);
+		//setLoading(75);
 		try {
 		  const { ethereum } = window;
 	
@@ -59,7 +59,7 @@ const App = () => {
 		  
 		} catch (error) {
 		  console.log(error)
-		  setLoading(80);
+		  //setLoading(80);
 		}
 	  }
 	  
